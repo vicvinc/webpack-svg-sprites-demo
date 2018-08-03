@@ -1,0 +1,8 @@
+{
+  "name": "vue-scaffold",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "http://scm.giftdev.top/gift-fe/elep-fe.git",
+  "author": "maxm <vicvinvinvinc@gmail.com>",
+  "license": "MIT"
+}

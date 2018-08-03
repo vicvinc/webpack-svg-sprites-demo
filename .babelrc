@@ -1,0 +1,15 @@
+{
+  "presets": ["env"],
+  "plugins": [
+    "transform-runtime",
+    "transform-vue-jsx",
+    "transform-object-rest-spread",
+    "transform-object-assign",
+    "syntax-dynamic-import"
+  ],
+  "env": {
+    "test": {
+      "presets": [["env"]]
+    }
+  }
+}
