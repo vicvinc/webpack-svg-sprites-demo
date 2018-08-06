@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
@@ -12,9 +13,14 @@ const assetsPath = file => path.join(__dirname, "./assets", file);
 
 const NODE_ENV = process.env.NODE_ENV;
 const isProd = NODE_ENV === "production";
-const isDebug = process.env.DEBUG === true;
+const isDev = NODE_ENV === "development";
 
-console.log("current run env is:", NODE_ENV); // eslint-disable-line no-console
+console.log(
+  "process env is:",
+  process.env.NODE_ENV,
+  !!process.env.DEBUG,
+  process.env.API_ENV
+); // eslint-disable-line no-console
 
 // const STATIC_HOST = isProd ? '//kuaikanapi.com/' : '/'
 const STATIC_HOST = "/";
@@ -62,11 +68,7 @@ const plugins = [
   // 首页
   new HtmlWebpackPlugin({
     inject: true,
-    minify: isProd
-      ? {
-          html5: false
-        }
-      : {},
+    minify: isProd ? { html5: false } : {},
     BASE_URL: STATIC_HOST,
     chunks: ["vendors", "commons", "app"],
     favicon: assetsPath("/images/logo/logo.png"),
@@ -98,7 +100,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "./dist"),
     filename: "js/[name].[hash:8].js",
-    chunkFilename: "js/chunk.[name].[hash:8].js",
+    chunkFilename: "js/chunks/[name].[hash:8].js",
     publicPath: STATIC_HOST,
     libraryTarget: "var"
   },
@@ -178,5 +180,5 @@ module.exports = {
   },
   optimization,
   plugins,
-  devtool: isDebug ? "cheap-source-map" : false
+  devtool: isDev ? "cheap-source-map" : false
 };
