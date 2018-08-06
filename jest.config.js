@@ -53,8 +53,7 @@ module.exports = {
   // A set of global variables that need to be available in all test environments
   globals: {
     API_ENV: "development",
-    NODE_ENV: "development",
-    DEV_USER: "maxm"
+    NODE_ENV: "development"
   },
 
   // An array of directory names to be searched recursively up from the requiring module's location

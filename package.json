@@ -4,5 +4,61 @@
   "main": "index.js",
   "repository": "http://scm.giftdev.top/gift-fe/elep-fe.git",
   "author": "maxm <vicvinvinvinc@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build:clear": "rm -rf dist",
+    "dev": "webpack -d -p",
+    "hot": "webpack-dev-server --inline --hot",
+    "test": "jest",
+    "lint": "eslint ./src --ext .js,.vue && stylelint \"src/**/*.less\"",
+    "lint:fix": "eslint --fix ./src --ext .js,.vue && stylelint --fix \"src/**/*.less\"",
+    "precommit": "lint-staged"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.5",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-runtime": "^6.26.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.3.0",
+    "eslint-plugin-vue": "^4.7.1",
+    "eslint-plugin-vue-libs": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.4.2",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "pre-commit": "^1.2.2",
+    "sass-loader": "^7.1.0",
+    "stylelint": "^9.4.0",
+    "stylelint-config-standard": "^18.2.0",
+    "url-loader": "^1.0.1",
+    "vue-jest": "^2.6.0",
+    "vue-loader": "^15.2.6",
+    "vue-style-loader": "^4.1.1",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.16.4",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "dependencies": {
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "IE 10"
+  ],
+  "lint-staged": {
+    "./src/**/*.{js,vue}": [
+      "yarn lint:fix",
+      "git add"
+    ]
+  }
 }
