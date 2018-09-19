@@ -1,13 +1,18 @@
 {
-  "presets": ["env"],
+  "presets": ["@babel/preset-env"],
   "plugins": [
-    "transform-runtime",
     "transform-vue-jsx",
-    "syntax-dynamic-import"
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-object-assign"
   ],
   "env": {
     "test": {
-      "presets": [["env"]]
+      "presets": [["@babel/preset-env"]]
+    },
+    "production": {
+      "presets": ["minify"]
     }
   }
 }

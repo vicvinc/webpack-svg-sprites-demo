@@ -68,7 +68,7 @@ module.exports = {
   // moduleNameMapper: {},
   moduleNameMapper: {
     // "^resources/assets/(.*)$": "<rootDir>/$1",
-    "^@/(.*)$": "<rootDir>/src/js/$1"
+    "^@/(.*)$": "<rootDir>/src/$1"
   },
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -151,7 +151,7 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   // transform: null,
   transform: {
-    "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+    "^.+\\.js?$": "babel-jest",
     ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
   }
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

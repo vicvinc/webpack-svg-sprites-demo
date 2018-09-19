@@ -1,11 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
-const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
+const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
+const { VueLoaderPlugin } = require("vue-loader");
 
 const srcPath = file => path.join(__dirname, "./src", file);
 const viewsPath = views => path.join(__dirname, "./public", views);
@@ -14,13 +12,6 @@ const assetsPath = file => path.join(__dirname, "./assets", file);
 const NODE_ENV = process.env.NODE_ENV;
 const isProd = NODE_ENV === "production";
 const isDev = NODE_ENV === "development";
-
-console.log(
-  "process env is:",
-  process.env.NODE_ENV,
-  !!process.env.DEBUG,
-  process.env.API_ENV
-); // eslint-disable-line no-console
 
 // const STATIC_HOST = isProd ? '//kuaikanapi.com/' : '/'
 const STATIC_HOST = "/";
@@ -55,17 +46,14 @@ const optimization = {
 };
 
 const plugins = [
+  new SpriteLoaderPlugin(),
   new VueLoaderPlugin(),
   // dev hot replacement
   new webpack.HotModuleReplacementPlugin(),
-  // 样式表
   new MiniCssExtractPlugin({
-    // Options similar to the same options in webpackOptions.output
-    // both options are optional
     filename: isProd ? "css/[name].[hash:8].css" : "css/[name].css",
     chunkFilename: isProd ? "css/chunk.[name].[hash:8].css" : "css/[id].css"
   }),
-  // 首页
   new HtmlWebpackPlugin({
     inject: true,
     minify: isProd ? { html5: false } : {},
@@ -73,24 +61,9 @@ const plugins = [
     chunks: ["vendors", "commons", "app"],
     favicon: assetsPath("/images/logo/logo.png"),
     filename: "index.html",
-    template: viewsPath("index.ejs"),
-    isProd: isProd
+    template: viewsPath("index.ejs")
   })
 ];
-/*
-isProd && plugins.push(new BundleAnalyzerPlugin({
-    analyzerMode: 'server',
-    analyzerHost: '127.0.0.1',
-    analyzerPort: 8299,
-    reportFilename: 'report.html',
-    defaultSizes: 'parsed',
-    openAnalyzer: true,
-    generateStatsFile: false,
-    statsFilename: 'stats.json',
-    statsOptions: null,
-    logLevel: 'info'
-}))
-*/
 module.exports = {
   mode: isProd ? "production" : "development",
   entry: {
@@ -133,8 +106,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: "babel-loader",
-        exclude: /node_modules/
+        loader: "babel-loader"
       },
       {
         test: /\.css$/,
@@ -148,6 +120,7 @@ module.exports = {
         use: [
           isProd ? MiniCssExtractPlugin.loader : "vue-style-loader",
           "css-loader",
+          "postcss-loader",
           "less-loader"
         ]
       },
@@ -156,16 +129,31 @@ module.exports = {
         use: [
           isProd ? MiniCssExtractPlugin.loader : "vue-style-loader",
           "css-loader",
+          "postcss-loader",
           "sass-loader"
         ]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: "url-loader",
         options: {
           limit: 1000,
           name: "images/[name].[hash:8].[ext]"
         }
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "svg-sprite-loader",
+            options: {
+              extract: true,
+              publicPath: "/"
+            }
+          },
+          "svg-fill-loader",
+          "svgo-loader"
+        ]
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,

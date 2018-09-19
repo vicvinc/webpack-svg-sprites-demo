@@ -17,7 +17,7 @@ yarn install
 ## dev
 
 ```bash
-yarn hot
+yarn dev
 ```
 
 ## build
