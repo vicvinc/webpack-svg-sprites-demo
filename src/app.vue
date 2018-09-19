@@ -25,12 +25,15 @@ export default {
 html,
 body,
 .container {
+  text-align: center;
   width: 100%;
   height: 100%;
 }
 .col-wrap {
+  margin: 0 auto;
   width: 200px;
   height: 200px;
+  background: #c3c3c3;
   .icon {
     display: inline-block;
     width: 50px;
