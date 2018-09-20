@@ -38,14 +38,17 @@ body,
     display: inline-block;
     width: 50px;
     height: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
     &-1 {
-      background: url("./images/qa.1.svg") center / cover no-repeat;
+      background-image: url("./images/qa.1.svg");
     }
     &-2 {
-      background: url("./images/qa.2.svg") center / cover no-repeat;
+      background-image: url("./images/qa.2.svg");
     }
     &-3 {
-      background: url("./images/qa.3.svg") center / cover no-repeat;
+      background-image: url("./images/qa.3.svg");
     }
   }
 }

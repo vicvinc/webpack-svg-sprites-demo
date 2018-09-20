@@ -147,8 +147,9 @@ module.exports = {
           {
             loader: "svg-sprite-loader",
             options: {
+              esModule: false,
               extract: true,
-              publicPath: "/"
+              publicPath: "images"
             }
           },
           "svg-fill-loader",
