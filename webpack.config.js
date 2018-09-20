@@ -149,7 +149,7 @@ module.exports = {
             options: {
               esModule: false,
               extract: true,
-              publicPath: "images"
+              publicPath: "images/"
             }
           },
           "svg-fill-loader",
